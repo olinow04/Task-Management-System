@@ -2,7 +2,7 @@
 
 # Ten etap jest używany podczas uruchamiania z programu VS w trybie szybkim (domyślnie dla konfiguracji debugowania)
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
-USER $APP_UID
+USER root
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
