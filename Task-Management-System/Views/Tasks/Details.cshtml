@@ -1,35 +1,90 @@
-@model Task_Management_System.Models.TaskItem
+﻿@model Task_Management_System.Models.TaskItem
 
 @{
-    ViewData["Title"] = "Task Details";
+    ViewData["Title"] = "Szczegóły Zadania";
 }
 
-<h1>Task Details</h1>
+<div class="container animate-fade-in" style="max-width: 900px;">
+    <div class="page-header">
+        <h1>✏️ @Model.Title</h1>
+        <div class="action-buttons">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary-custom">✏️ Edytuj</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger-custom">🗑️ Usuń</a>
+            }
+            <a asp-action="Index" class="btn btn-secondary-custom">↩️ Powrót</a>
+        </div>
+    </div>
 
-<div>
-    <h4>@Model.Title</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">Description</dt>
-        <dd class="col-sm-10">@Model.Description</dd>
-        <dt class="col-sm-2">Project</dt>
-        <dd class="col-sm-10">@Model.Project?.Name</dd>
-        <dt class="col-sm-2">Priority</dt>
-        <dd class="col-sm-10">@Model.Priority</dd>
-        <dt class="col-sm-2">Status</dt>
-        <dd class="col-sm-10">@Model.Status</dd>
-        <dt class="col-sm-2">Created Date</dt>
-        <dd class="col-sm-10">@Model.CreatedDate.ToShortDateString()</dd>
-        <dt class="col-sm-2">Due Date</dt>
-        <dd class="col-sm-10">@(Model.DueDate?.ToShortDateString() ?? "Not set")</dd>
-    </dl>
-</div>
+    <div class="row">
+        <div class="col-md-8 mb-4">
+            <div class="card-modern">
+                <div class="card-modern-header">
+                    <h3 class="card-modern-title">📄 Szczegóły</h3>
+                </div>
+                <div class="card-modern-body">
+                    <div class="mb-4">
+                        <strong>Opis:</strong>
+                        <p class="text-muted mt-2">@(Model.Description ?? "Brak opisu")</p>
+                    </div>
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-    @if (User.IsInRole("Admin"))
-    {
-        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
-    }
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3">
+                            <strong>Projekt:</strong><br />
+                            <a asp-controller="Projects" asp-action="Details" asp-route-id="@Model.ProjectId" class="text-decoration-none">
+                                <span class="badge-custom badge-info">📁 @Model.Project?.Name</span>
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong>Status:</strong><br />
+                            <span class="badge-custom status-@Model.Status.ToString().ToLower()">
+                                @Model.Status
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <strong>Priorytet:</strong><br />
+                            <span class="badge-custom priority-@Model.Priority. ToString().ToLower()">
+                                @Model.Priority
+                            </span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong>Data utworzenia:</strong><br />
+                            <span class="text-muted">@Model.CreatedDate.ToString("dd MMMM yyyy, HH:mm")</span>
+                        </div>
+                    </div>
+
+                    @if (Model.DueDate. HasValue)
+                    {
+                        <div class="mb-2">
+                            <strong>Termin wykonania:</strong><br />
+                            <span class="text-muted">@Model.DueDate.Value.ToString("dd MMMM yyyy")</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card-modern">
+                <div class="card-modern-header">
+                    <h3 class="card-modern-title">💬 Komentarze</h3>
+                </div>
+                <div class="card-modern-body">
+                    @if (Model. Comments.Any())
+                    {
+                        <div class="stat-card-value">@Model.Comments.Count</div>
+                        <div class="stat-card-label">Komentarzy</div>
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">Brak komentarzy</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

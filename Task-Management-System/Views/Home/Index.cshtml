@@ -1,8 +1,97 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Panel Główny";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="dashboard-container animate-fade-in">
+    <div class="dashboard-header">
+        <h1>Task Management System</h1>
+        <p>Zarządzaj projektami i zadaniami w jednym miejscu</p>
+    </div>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-value">@(ViewBag.ActiveProjects ??  0)</div>
+                        <div class="stat-card-label">Aktywne Projekty</div>
+                    </div>
+                    <div class="stat-card-icon primary">📁</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-value">@(ViewBag.TodoTasks ?? 0)</div>
+                        <div class="stat-card-label">Zadania Do Zrobienia</div>
+                    </div>
+                    <div class="stat-card-icon warning">⏰</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-value">@(ViewBag.InProgressTasks ?? 0)</div>
+                        <div class="stat-card-label">W Trakcie</div>
+                    </div>
+                    <div class="stat-card-icon info">⚙️</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-value">@(ViewBag.CompletedTasks ?? 0)</div>
+                        <div class="stat-card-label">Ukończone</div>
+                    </div>
+                    <div class="stat-card-icon success">✅</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card-modern">
+                    <div class="card-modern-header">
+                        <h3 class="card-modern-title">🚀 Szybkie Akcje</h3>
+                    </div>
+                    <div class="card-modern-body">
+                        <div class="action-buttons">
+                            <a asp-controller="Projects" asp-action="Create" class="btn btn-primary-custom">➕ Nowy Projekt</a>
+                            <a asp-controller="Tasks" asp-action="Create" class="btn btn-secondary-custom">✏️ Nowe Zadanie</a>
+                            <a asp-controller="Projects" asp-action="Index" class="btn btn-secondary-custom">📋 Zobacz Projekty</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card-modern">
+                    <div class="card-modern-header">
+                        <h3 class="card-modern-title">ℹ️ Informacje</h3>
+                    </div>
+                    <div class="card-modern-body">
+                        <p><strong>Rola:</strong> <span class="badge-custom badge-info">@(User.IsInRole("Admin") ? "Administrator" : "Użytkownik")</span></p>
+                        <p><strong>Email:</strong> @User.Identity.Name</p>
+                        <p class="mb-0"><strong>Status:</strong> <span class="badge-custom badge-success">Zalogowany</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="empty-state-icon">🔐</div>
+            <h3>Witamy w Systemie Zarządzania Zadaniami</h3>
+            <p>Zaloguj się lub zarejestruj, aby zarządzać projektami i zadaniami</p>
+            <div class="action-buttons" style="justify-content: center;">
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary-custom">🔑 Zaloguj się</a>
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-secondary-custom">📝 Zarejestruj się</a>
+            </div>
+        </div>
+    }
 </div>

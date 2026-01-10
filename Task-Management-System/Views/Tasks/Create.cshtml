@@ -1,48 +1,70 @@
-@model Task_Management_System.Models.TaskItem
+﻿@model Task_Management_System.Models.TaskItem
 
 @{
-    ViewData["Title"] = "Create Task";
+    ViewData["Title"] = "Nowe Zadanie";
 }
 
-<h1>Create Task</h1>
+<div class="container animate-fade-in" style="max-width: 800px;">
+    <div class="page-header">
+        <h1>➕ Nowe Zadanie</h1>
+    </div>
 
-<form asp-action="Create">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Title" class="control-label"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+    <div class="form-modern">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" placeholder="Wpisz tytuł zadania" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4" placeholder="Opisz zadanie... "></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="ProjectId" class="control-label"></label>
+                <select asp-for="ProjectId" class="form-control" asp-items="ViewBag. ProjectId">
+                    <option value="">-- Wybierz projekt --</option>
+                </select>
+                <span asp-validation-for="ProjectId" class="text-danger"></span>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Priority" class="control-label"></label>
+                        <select asp-for="Priority" class="form-control" asp-items="Html.GetEnumSelectList<Task_Management_System.Models.TaskPriority>()"></select>
+                        <span asp-validation-for="Priority" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label"></label>
+                        <select asp-for="Status" class="form-control" asp-items="Html. GetEnumSelectList<Task_Management_System.Models.TaskStatus>()"></select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="DueDate" class="control-label"></label>
+                <input asp-for="DueDate" class="form-control" type="date" />
+                <span asp-validation-for="DueDate" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mt-4">
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary-custom">💾 Utwórz Zadanie</button>
+                    <a asp-action="Index" class="btn btn-secondary-custom">↩️ Anuluj</a>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Description" class="control-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ProjectId" class="control-label"></label>
-        <select asp-for="ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
-        <span asp-validation-for="ProjectId" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="DueDate" class="control-label"></label>
-        <input asp-for="DueDate" class="form-control" />
-        <span asp-validation-for="DueDate" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Priority" class="control-label"></label>
-        <select asp-for="Priority" class="form-control" asp-items="Html.GetEnumSelectList<Task_Management_System.Models.TaskPriority>()"></select>
-        <span asp-validation-for="Priority" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Status" class="control-label"></label>
-        <select asp-for="Status" class="form-control" asp-items="Html.GetEnumSelectList<Task_Management_System.Models.TaskStatus>()"></select>
-        <span asp-validation-for="Status" class="text-danger"></span>
-    </div>
-    <div class="form-group mt-3">
-        <input type="submit" value="Create" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-    </div>
-</form>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

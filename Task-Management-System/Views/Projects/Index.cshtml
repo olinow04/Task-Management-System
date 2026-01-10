@@ -1,40 +1,72 @@
-@model IEnumerable<Task_Management_System.Models.Project>
+﻿@model IEnumerable<Task_Management_System.Models.Project>
 
 @{
-    ViewData["Title"] = "Projects";
+    ViewData["Title"] = "Projekty";
 }
 
-<h1>Projects</h1>
+<div class="container animate-fade-in">
+    <div class="page-header">
+        <h1>📁 Projekty</h1>
+        <a asp-action="Create" class="btn btn-primary-custom">➕ Nowy Projekt</a>
+    </div>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>Status</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Description</td>
-            <td>@item.StartDate.ToShortDateString()</td>
-            <td>@item.Status</td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
-                @if (User.IsInRole("Admin"))
-                {
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
-                }
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    @if (Model?. Any() == true)
+    {
+        <div class="row">
+            @foreach (var project in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card-modern">
+                        <div class="card-modern-header">
+                            <h3 class="card-modern-title">@project.Name</h3>
+                            <span class="badge-custom status-@project.Status.ToString().ToLower()">
+                                @switch(project.Status)
+                                {
+                                    case ProjectStatus. Active:  @: Aktywny
+                                    break;
+                                    case ProjectStatus. Completed: @: Ukończony
+                                    break;
+                                    case ProjectStatus.OnHold: @:  Wstrzymany
+                                    break;
+                                    case ProjectStatus. Cancelled: @: Anulowany
+                                    break;
+                                }
+                            </span>
+                        </div>
+                        <div class="card-modern-body">
+                            <p class="text-muted mb-3">@(project.Description ?? "Brak opisu")</p>
+                            
+                            <div class="mb-3">
+                                <small class="text-muted">
+                                    <strong>Start:</strong> @project.StartDate.ToString("dd.MM.yyyy")<br />
+                                    @if (project.EndDate. HasValue)
+                                    {
+                                        <strong>Koniec:</strong> @project.EndDate.Value.ToString("dd.MM.yyyy")
+                                    }
+                                </small>
+                            </div>
+
+                            <div class="action-buttons">
+                                <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-sm btn-secondary-custom">👁️ Szczegóły</a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@project.Id" class="btn btn-sm btn-secondary-custom">✏️ Edytuj</a>
+                                    <a asp-action="Delete" asp-route-id="@project.Id" class="btn btn-sm btn-danger-custom">🗑️ Usuń</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="empty-state-icon">📂</div>
+            <h3>Brak projektów</h3>
+            <p>Rozpocznij pracę tworząc pierwszy projekt</p>
+            <a asp-action="Create" class="btn btn-primary-custom">➕ Utwórz Pierwszy Projekt</a>
+        </div>
+    }
+</div>

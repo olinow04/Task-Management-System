@@ -1,42 +1,107 @@
-@model IEnumerable<Task_Management_System.Models.TaskItem>
+﻿@using Task_Management_System.Models
+@model IEnumerable<TaskItem>
 
 @{
-    ViewData["Title"] = "Tasks";
+    ViewData["Title"] = "Zadania";
 }
 
-<h1>Tasks</h1>
+<div class="container animate-fade-in">
+    <div class="page-header">
+        <h1>✏️ Zadania</h1>
+        <a asp-action="Create" class="btn btn-primary-custom">➕ Nowe Zadanie</a>
+    </div>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Project</th>
-            <th>Priority</th>
-            <th>Status</th>
-            <th>Due Date</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>@item.Title</td>
-            <td>@item.Project?.Name</td>
-            <td>@item.Priority</td>
-            <td>@item.Status</td>
-            <td>@(item.DueDate?.ToShortDateString() ?? "-")</td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
-                @if (User.IsInRole("Admin"))
-                {
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
-                }
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    @if (Model?.Any() == true)
+    {
+        <div class="table-modern">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Tytuł</th>
+                        <th>Projekt</th>
+                        <th>Status</th>
+                        <th>Priorytet</th>
+                        <th>Termin</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in Model)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@task.Title</strong>
+                                @if (! string.IsNullOrEmpty(task.Description))
+                                {
+                                    <br /><small class="text-muted">@task.Description.Substring(0, Math.Min(50, task.Description.Length))...</small>
+                                }
+                            </td>
+                            <td>@task.Project?.Name</td>
+                            <td>
+                                <span class="badge-custom status-@task.Status.ToString().ToLower()">
+                                    @switch(task.Status)
+                                    {
+                                        case Task_Management_System.Models.TaskStatus.ToDo: @: Do Zrobienia
+                                        break;
+                                        case Task_Management_System.Models.TaskStatus.InProgress: @: W Trakcie
+                                        break;
+                                        case Task_Management_System.Models.TaskStatus.Testing: @: Testowanie
+                                        break;
+                                        case Task_Management_System.Models.TaskStatus.Done: @: Gotowe
+                                        break;
+                                        case Task_Management_System.Models.TaskStatus.Blocked: @: Zablokowane
+                                        break;
+                                    }
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge-custom priority-@task.Priority.ToString().ToLower()">
+                                    @switch(task.Priority)
+                                    {
+                                        case TaskPriority.Low: @: Niski
+                                        break;
+                                        case TaskPriority.Medium: @: Średni
+                                        break;
+                                        case TaskPriority.High: @: Wysoki
+                                        break;
+                                        case TaskPriority.Critical: @: Krytyczny
+                                        break;
+                                    }
+                                </span>
+                            </td>
+                            <td>
+                                @if (task.DueDate.HasValue)
+                                {
+                                    <span>@task.DueDate.Value.ToString("dd.MM.yyyy")</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Brak</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-sm btn-secondary-custom" title="Szczegóły">👁️</a>
+                                    <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-sm btn-secondary-custom" title="Edytuj">✏️</a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-sm btn-danger-custom" title="Usuń">🗑️</a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="empty-state-icon">📝</div>
+            <h3>Brak zadań</h3>
+            <p>Nie masz jeszcze żadnych zadań. Utwórz pierwsze zadanie, aby rozpocząć pracę.</p>
+            <a asp-action="Create" class="btn btn-primary-custom">➕ Utwórz Pierwsze Zadanie</a>
+        </div>
+    }
+</div>

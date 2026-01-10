@@ -1,61 +1,142 @@
-@model Task_Management_System.Models.Project
+﻿@model Task_Management_System.Models.Project
 
 @{
-    ViewData["Title"] = "Project Details";
+    ViewData["Title"] = "Szczegóły Projektu";
 }
 
-<h1>Project Details</h1>
+<div class="container animate-fade-in">
+    <div class="page-header">
+        <h1>@Model.Name</h1>
+        <div class="action-buttons">
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary-custom">Edytuj</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger-custom">Usuń</a>
+            }
+            <a asp-action="Index" class="btn btn-secondary-custom">Powrót</a>
+        </div>
+    </div>
 
-<div>
-    <h4>@Model.Name</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">Description</dt>
-        <dd class="col-sm-10">@Model.Description</dd>
-        <dt class="col-sm-2">Start Date</dt>
-        <dd class="col-sm-10">@Model.StartDate.ToShortDateString()</dd>
-        <dt class="col-sm-2">End Date</dt>
-        <dd class="col-sm-10">@(Model.EndDate?.ToShortDateString() ?? "Not set")</dd>
-        <dt class="col-sm-2">Status</dt>
-        <dd class="col-sm-10">@Model.Status</dd>
-    </dl>
-</div>
+    <div class="row">
+        <div class="col-md-8 mb-4">
+            <div class="card-modern">
+                <div class="card-modern-header">
+                    <h3 class="card-modern-title">Informacje</h3>
+                    <span class="badge-custom status-@Model.Status.ToString().ToLower()">
+                        @Model.Status
+                    </span>
+                </div>
+                <div class="card-modern-body">
+                    <div class="mb-3">
+                        <strong>Opis:</strong>
+                        <p class="text-muted">@(Model.Description ??"Brak opisu")</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <strong>Data rozpoczęcia:</strong><br />
+                            <span class="text-muted">@Model.StartDate.ToString("dd MMMM yyyy")</span>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <strong>Data zakończenia:</strong><br />
+                            <span class="text-muted">@(Model.EndDate?.ToString("dd MMMM yyyy") ??"Nie określono")</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<h3>Tasks</h3>
-<a asp-controller="Tasks" asp-action="Create" asp-route-projectId="@Model.Id" class="btn btn-primary mb-3">Add Task</a>
+        <div class="col-md-4 mb-4">
+            <div class="card-modern">
+                <div class="card-modern-header">
+                    <h3 class="card-modern-title">Statystyki</h3>
+                </div>
+                <div class="card-modern-body">
+                    <div class="mb-3">
+                        <div class="stat-card-value">@Model.Tasks.Count</div>
+                        <div class="stat-card-label">Zadań</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Priority</th>
-            <th>Status</th>
-            <th>Due Date</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var task in Model.Tasks)
-        {
-            <tr>
-                <td>@task.Title</td>
-                <td>@task.Priority</td>
-                <td>@task.Status</td>
-                <td>@(task.DueDate?.ToShortDateString() ?? "-")</td>
-                <td>
-                    <a asp-controller="Tasks" asp-action="Details" asp-route-id="@task.Id" class="btn btn-sm btn-info">Details</a>
-                    <a asp-controller="Tasks" asp-action="Edit" asp-route-id="@task.Id" class="btn btn-sm btn-warning">Edit</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<div>
-    @if (User.IsInRole("Admin"))
-    {
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
-    }
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <div class="card-modern">
+        <div class="card-modern-header">
+            <h3 class="card-modern-title">Zadania (@Model.Tasks.Count)</h3>
+            <a asp-controller="Tasks" asp-action="Create" asp-route-projectId="@Model.Id" class="btn btn-sm btn-primary-custom">
+                Dodaj Zadanie
+            </a>
+        </div>
+        <div class="card-modern-body p-0">
+            @if (Model.Tasks.Any())
+            {
+                <div class="table-modern">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Tytuł</th>
+                                <th>Status</th>
+                                <th>Priorytet</th>
+                                <th>Termin</th>
+                                <th>Akcje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var task in Model.Tasks)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@task.Title</strong>
+                                        @if (!string.IsNullOrEmpty(task.Description))
+                                        {
+                                            <br />
+                                
+                                            <small class="text-muted">@task.Description.Substring(0, Math.Min(40, task.Description.Length))...</small>
+                                        }
+                                    </td>
+                                    <td>
+                                        <span class="badge-custom status-@task.Status.ToString().ToLower()">
+                                            @task.Status
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-custom priority-@task.Priority.ToString().ToLower()">
+                                            @task.Priority
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @if (task.DueDate.HasValue)
+                                        {
+                                            <span>@task.DueDate.Value.ToString("dd. MM.yyyy")</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Brak</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a asp-controller="Tasks" asp-action="Details" asp-route-id="@task.Id" class="btn btn-sm btn-secondary-custom">Szczegóły</a>
+                                            <a asp-controller="Tasks" asp-action="Edit" asp-route-id="@task.Id" class="btn btn-sm btn-secondary-custom">Edytuj</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <div class="empty-state-icon">??</div>
+                    <h3>Brak zadań</h3>
+                    <p>Ten projekt nie ma jeszcze żadnych zadań</p>
+                    <a asp-controller="Tasks" asp-action="Create" asp-route-projectId="@Model.Id" class="btn btn-primary-custom">
+                        ? Dodaj Pierwsze Zadanie
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
 </div>
