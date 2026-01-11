@@ -81,7 +81,7 @@ body {
 /* ==========================================
    Dashboard
    ========================================== */
-. dashboard-container {
+.dashboard-container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem 1rem;
@@ -93,13 +93,13 @@ body {
 }
 
     .dashboard-header h1 {
-        font-size: 2.5rem;
+        font-size: 3rem;
         font-weight: 700;
-        color: var(--primary-color);
+        color: #2D3748;
         margin-bottom: 0.5rem;
     }
 
-    . dashboard-header p {
+    .dashboard-header p {
         color: var(--text-muted);
         font-size: 1.1rem;
     }
@@ -126,7 +126,7 @@ body {
 }
 
     /* Kolorowe akcenty na górze karty */
-    .stat-card:: before {
+    .stat-card::before {
         content: '';
         position: absolute;
         top: 0;
@@ -159,7 +159,7 @@ body {
             background: linear-gradient(90deg, var(--accent-color), var(--primary-light));
         }
 
-    .stat-card: nth-child(4) {
+    .stat-card:nth-child(4) {
         background: linear-gradient(135deg, var(--success-bg) 0%, var(--success-light) 100%);
     }
 
@@ -172,7 +172,7 @@ body {
         box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
     }
 
-. stat-card-header {
+.stat-card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -190,7 +190,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-    .stat-card-icon. primary {
+    .stat-card-icon.primary {
         background: white;
         color: var(--info);
     }
@@ -274,29 +274,9 @@ body {
 }
 
 /* ==========================================
-   Buttons - WYRAZISTE
+   Buttons - WSZYSTKIE W JEDNOLITYM STYLU
    ========================================== */
-. btn-primary-custom {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-    border: none;
-    color: white;
-    padding: 0.75rem 1.75rem;
-    border-radius: 10px;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(107, 127, 160, 0.3);
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-}
-
-    .btn-primary-custom:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(107, 127, 160, 0.4);
-        color: white;
-        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
-    }
-
+.btn-primary-custom,
 .btn-secondary-custom {
     background: linear-gradient(135deg, #EFF3F8 0%, #E0E8F0 100%);
     border: 2px solid var(--border-color);
@@ -308,15 +288,24 @@ body {
     text-transform: uppercase;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
+    .btn-primary-custom:hover,
     .btn-secondary-custom:hover {
         background: white;
         border-color: var(--primary-color);
         color: var(--primary-color);
         transform: translateY(-3px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
     }
+
+/* Małe przyciski */
+.btn-sm.btn-primary-custom,
+.btn-sm.btn-secondary-custom {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
 
 .btn-danger-custom {
     background: linear-gradient(135deg, var(--danger) 0%, #BC7F7F 100%);
@@ -337,6 +326,11 @@ body {
         transform: translateY(-3px);
         box-shadow: 0 8px 20px rgba(168, 107, 107, 0.4);
     }
+
+.btn-sm.btn-danger-custom {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
 
 /* ==========================================
    Badges - WYRAZISTE
@@ -405,7 +399,7 @@ body {
     font-weight: 500;
 }
 
-    . form-control:focus {
+    .form-control:focus {
         border-color: var(--primary-color);
         box-shadow: 0 0 0 4px rgba(107, 127, 160, 0.15);
         background: white;
@@ -463,14 +457,14 @@ body {
     }
 
 /* ==========================================
-   Page Header
+   Page Header - LEPSZY LAYOUT
    ========================================== */
-. page-header {
+.page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2. 5rem;
-    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem 0;
     border-bottom: 3px solid var(--primary-color);
 }
 
@@ -597,7 +591,7 @@ body {
     font-weight: 700;
 }
 
-. empty-state p {
+.empty-state p {
     color: var(--text-muted);
     margin-bottom: 2rem;
     font-size: 1.1rem;
@@ -647,7 +641,7 @@ body {
         grid-template-columns: 1fr;
     }
 
-    . page-header {
+    .page-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;

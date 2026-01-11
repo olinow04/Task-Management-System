@@ -1,10 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Panel Główny";
+    ViewData["Title"] = "Dashboard";
 }
 
 <div class="dashboard-container animate-fade-in">
     <div class="dashboard-header">
-        <h1>Task Management System</h1>
+        <h1 style="color: #2D3748; font-size: 3rem;">Task Management System</h1>
         <p>Zarządzaj projektami i zadaniami w jednym miejscu</p>
     </div>
 
@@ -14,7 +14,7 @@
             <div class="stat-card">
                 <div class="stat-card-header">
                     <div>
-                        <div class="stat-card-value">@(ViewBag.ActiveProjects ??  0)</div>
+                        <div class="stat-card-value">@(ViewBag.ActiveProjects ?? 0)</div>
                         <div class="stat-card-label">Aktywne Projekty</div>
                     </div>
                     <div class="stat-card-icon primary">📁</div>
@@ -65,17 +65,17 @@
                             <a asp-controller="Projects" asp-action="Index" class="btn btn-secondary-custom">📋 Zobacz Projekty</a>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
 
             <div class="col-md-6 mb-4">
                 <div class="card-modern">
                     <div class="card-modern-header">
-                        <h3 class="card-modern-title">ℹ️ Informacje</h3>
+                        <h3 class="card-modern-title">Informacje</h3>
                     </div>
                     <div class="card-modern-body">
-                        <p><strong>Rola:</strong> <span class="badge-custom badge-info">@(User.IsInRole("Admin") ? "Administrator" : "Użytkownik")</span></p>
                         <p><strong>Email:</strong> @User.Identity.Name</p>
+                        <p><strong>Rola:</strong> <span class="badge-custom badge-info">@(User.IsInRole("Admin") ? "Administrator" : "Użytkownik")</span></p>
                         <p class="mb-0"><strong>Status:</strong> <span class="badge-custom badge-success">Zalogowany</span></p>
                     </div>
                 </div>
@@ -85,8 +85,8 @@
     else
     {
         <div class="empty-state">
-            <div class="empty-state-icon">🔐</div>
-            <h3>Witamy w Systemie Zarządzania Zadaniami</h3>
+            <div class="empty-state-icon"></div>
+            <h3>Witamy w Task Management System</h3>
             <p>Zaloguj się lub zarejestruj, aby zarządzać projektami i zadaniami</p>
             <div class="action-buttons" style="justify-content: center;">
                 <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary-custom">🔑 Zaloguj się</a>

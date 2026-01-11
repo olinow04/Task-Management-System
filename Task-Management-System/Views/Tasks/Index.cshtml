@@ -31,41 +31,59 @@
                         <tr>
                             <td>
                                 <strong>@task.Title</strong>
-                                @if (! string.IsNullOrEmpty(task.Description))
+                                @if (!string.IsNullOrEmpty(task.Description))
                                 {
-                                    <br /><small class="text-muted">@task.Description.Substring(0, Math.Min(50, task.Description.Length))...</small>
+                                    <br />
+                        
+                                    <small class="text-muted">@task.Description.Substring(0, Math.Min(50, task.Description.Length))...</small>
                                 }
                             </td>
                             <td>@task.Project?.Name</td>
                             <td>
                                 <span class="badge-custom status-@task.Status.ToString().ToLower()">
-                                    @switch(task.Status)
+                                    @switch (task.Status)
                                     {
-                                        case Task_Management_System.Models.TaskStatus.ToDo: @: Do Zrobienia
-                                        break;
-                                        case Task_Management_System.Models.TaskStatus.InProgress: @: W Trakcie
-                                        break;
-                                        case Task_Management_System.Models.TaskStatus.Testing: @: Testowanie
-                                        break;
-                                        case Task_Management_System.Models.TaskStatus.Done: @: Gotowe
-                                        break;
-                                        case Task_Management_System.Models.TaskStatus.Blocked: @: Zablokowane
-                                        break;
+                                        case Task_Management_System.Models.TaskStatus.ToDo:
+                                            @: Do Zrobienia
+                                            break;
+                                        case Task_Management_System.Models.TaskStatus.InProgress:
+
+                                            @: W Trakcie
+                                            break;
+                                        case Task_Management_System.Models.TaskStatus.Testing:
+
+                                            @: Testowanie
+                                            break;
+                                        case Task_Management_System.Models.TaskStatus.Done:
+
+                                            @: Gotowe
+                                            break;
+                                        case Task_Management_System.Models.TaskStatus.Blocked:
+
+                                            @: Zablokowane
+                                            break;
                                     }
                                 </span>
                             </td>
                             <td>
                                 <span class="badge-custom priority-@task.Priority.ToString().ToLower()">
-                                    @switch(task.Priority)
+                                    @switch (task.Priority)
                                     {
-                                        case TaskPriority.Low: @: Niski
-                                        break;
-                                        case TaskPriority.Medium: @: Średni
-                                        break;
-                                        case TaskPriority.High: @: Wysoki
-                                        break;
-                                        case TaskPriority.Critical: @: Krytyczny
-                                        break;
+                                        case TaskPriority.Low:
+                                            @: Niski
+                                            break;
+                                        case TaskPriority.Medium:
+
+                                            @: Średni
+                                            break;
+                                        case TaskPriority.High:
+
+                                            @: Wysoki
+                                            break;
+                                        case TaskPriority.Critical:
+
+                                            @: Krytyczny
+                                            break;
                                     }
                                 </span>
                             </td>
@@ -81,8 +99,8 @@
                             </td>
                             <td>
                                 <div class="action-buttons">
-                                    <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-sm btn-secondary-custom" title="Szczegóły">👁️</a>
-                                    <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-sm btn-secondary-custom" title="Edytuj">✏️</a>
+                                    <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-sm btn-secondary-custom" title="Szczeg��ły">👁️</a>
+                                    <a asp-action="Edit" asp-route-id="@task. Id" class="btn btn-sm btn-secondary-custom" title="Edytuj">✏️</a>
                                     @if (User.IsInRole("Admin"))
                                     {
                                         <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-sm btn-danger-custom" title="Usuń">🗑️</a>
@@ -100,7 +118,7 @@
         <div class="empty-state">
             <div class="empty-state-icon">📝</div>
             <h3>Brak zadań</h3>
-            <p>Nie masz jeszcze żadnych zadań. Utwórz pierwsze zadanie, aby rozpocząć pracę.</p>
+            <p>Nie masz jeszcze żadnych zadań.  Utwórz pierwsze zadanie, aby rozpocząć pracę.</p>
             <a asp-action="Create" class="btn btn-primary-custom">➕ Utwórz Pierwsze Zadanie</a>
         </div>
     }
