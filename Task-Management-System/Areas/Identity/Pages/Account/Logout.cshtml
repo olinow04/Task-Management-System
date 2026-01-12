@@ -1,0 +1,21 @@
+@page
+@model Task_Management_System.Areas.Identity.Pages.Account.LogoutModel
+@{
+    ViewData["Title"] = "Wylogowanie";
+}
+
+<header>
+    <h1>@ViewData["Title"]</h1>
+    @{
+        if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                <button type="submit" class="nav-link btn btn-link text-body">Kliknij tutaj, aby siê wylogowaæ</button>
+            </form>
+        }
+        else
+        {
+            <p>Zosta³eœ wylogowany.</p>
+        }
+    }
+</header>

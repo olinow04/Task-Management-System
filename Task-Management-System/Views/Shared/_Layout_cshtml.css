@@ -1,0 +1,81 @@
+﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a {
+  color: #5B9BD5;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #7DB3E8;
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, #5B9BD5 0%, #7DB3E8 100%);
+  border-color: #5B9BD5;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(91, 155, 213, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #7DB3E8 0%, #9AC8F0 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(91, 155, 213, 0.4);
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background: linear-gradient(135deg, #5B9BD5 0%, #7DB3E8 100%);
+  border-color: #5B9BD5;
+  box-shadow: 0 2px 8px rgba(91, 155, 213, 0.2);
+}
+
+.border-top {
+  border-top: 1px solid #D1DBE8;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #D1DBE8;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .1);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+  background: linear-gradient(135deg, #5B9BD5 0%, #7DB3E8 100%);
+  border: none;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(91, 155, 213, 0.3);
+}
+
+button.accept-policy:hover {
+  background: linear-gradient(135deg, #7DB3E8 0%, #9AC8F0 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(91, 155, 213, 0.4);
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+  background: linear-gradient(135deg, #5B9BD5 0%, #7DB3E8 100%);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 -4px 16px rgba(91, 155, 213, 0.3);
+}

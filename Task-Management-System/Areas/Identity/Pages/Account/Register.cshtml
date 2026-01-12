@@ -1,0 +1,47 @@
+﻿@page
+@model Task_Management_System.Areas.Identity.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Rejestracja";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card-modern">
+            <div class="card-modern-header">
+                <h2 class="card-modern-title">@ViewData["Title"]</h2>
+            </div>
+            <div class="card-modern-body">
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <hr />
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                        <label asp-for="Input.Email">Email</label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="hasło" />
+                        <label asp-for="Input.Password">Hasło</label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="hasło" />
+                        <label asp-for="Input.ConfirmPassword">Potwierdź hasło</label>
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Zarejestruj</button>
+                    <div class="mt-4 text-center">
+                        <p class="text-muted mb-0" style="font-size: 0.85rem;">
+                            Masz już konto? 
+                            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" style="color: #5B9BD5; text-decoration: none; font-weight: 600;">Zaloguj się</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
