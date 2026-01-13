@@ -6,8 +6,6 @@ System zarządzania zadaniami w projektach z możliwością tworzenia projektów
 - ASP.NET Core MVC (.NET 10)
 - Entity Framework Core
 - SQL Server (Docker)
-- Bootstrap 5
-- Identity (autoryzacja i autentykacja)
 
 ## Wymagania
 - .NET 10 SDK
@@ -15,8 +13,6 @@ System zarządzania zadaniami w projektach z możliwością tworzenia projektów
 - Visual Studio 2022 / VS Code (opcjonalnie)
 
 ## Instalacja i uruchomienie
-
-### Opcja 1: Docker (Zalecane)
 
 1. Sklonuj repozytorium:
 ```bash
@@ -31,28 +27,7 @@ cd Task-Management-System
 docker compose up --build
 ```
 
-4. Aplikacja będzie dostępna pod adresem: `http://localhost:5000`
-
-### Opcja 2: Lokalne uruchomienie
-
-1. Sklonuj repozytorium
-2. Przywróć pakiety:
-```bash
-dotnet restore
-```
-
-3. Zastosuj migracje:
-```bash
-cd Task-Management-System
-dotnet ef database update
-```
-
-4. Uruchom aplikację:
-```bash
-dotnet run
-```
-
-## Konfiguracja
+4. Aplikacja będzie dostępna pod adresem: `http://localhost:5015`
 
 ### Baza danych (Docker)
 - Server: `localhost,1433` (z hosta) lub `sqlserver` (w sieci Docker)
@@ -84,7 +59,7 @@ Aplikacja automatycznie tworzy dwóch użytkowników przy pierwszym uruchomieniu
 ## Funkcjonalności
 
 ### Autoryzacja
-- Rejestracja i logowanie użytkowników (ASP.NET Identity)
+- Rejestracja i logowanie użytkowników
 - Dwie role: **Admin** i **User**
 - Admin: pełny dostęp (edycja, usuwanie projektów i zadań)
 - User: przeglądanie, tworzenie i edycja zadań
@@ -119,12 +94,7 @@ Endpointy API (wymaga autoryzacji):
 - `PUT /api/TaskItemsApi/{id}` - Aktualizacja zadania
 - `DELETE /api/TaskItemsApi/{id}` - Usunięcie zadania (tylko Admin)
 
-Przykład użycia (wymaga tokenu autoryzacji):
-```bash
-curl -X GET http://localhost:5000/api/TaskItemsApi \
-  -H "Authorization: Bearer {token}"
-```
-
+ 
 ## Struktura bazy danych
 
 ### Encje
@@ -150,34 +120,6 @@ curl -X GET http://localhost:5000/api/TaskItemsApi \
 - Project → ProjectMembers (1:N)
 - TaskItem → Comments (1:N)
 
-## Docker - Polecenia pomocnicze
-
-### Zatrzymanie aplikacji
-```bash
-docker compose down
-```
-
-### Restart kontenerów
-```bash
-docker compose restart
-```
-
-### Logi aplikacji
-```bash
-docker compose logs -f webapp
-docker compose logs -f sqlserver
-```
-
-### Czyszczenie (usunięcie wolumenów z danymi)
-```bash
-docker compose down -v
-docker compose up --build
-```
-
-## Troubleshooting
-
-### Błąd połączenia z bazą danych
-SQL Server potrzebuje ~20-30 sekund na start. Poczekaj chwilę i odśwież stronę.
 
 ### Połączenie z bazą przez SSMS/Azure Data Studio
 - Server: `localhost,1433`

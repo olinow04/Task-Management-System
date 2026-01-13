@@ -1,6 +1,4 @@
-﻿/* ==========================================
-   Stonowana Paleta Kolorów
-   ========================================== */
+﻿
 :root {
     --primary-color: #5B9BD5;
     --primary-dark: #4A8AC2;
@@ -27,9 +25,7 @@
     --border-color: #D1DBE8;
 }
 
-/* ==========================================
-   Body - Gradient Background
-   ========================================== */
+
 body {
     background: linear-gradient(135deg, #EFF3F8 0%, #E0E8F0 100%);
     color: var(--text-dark);
@@ -38,9 +34,6 @@ body {
     min-height: 100vh;
 }
 
-/* ==========================================
-   Navbar - JASNY NIEBIESKI GRADIENT
-   ========================================== */
 .navbar-custom {
     background: linear-gradient(135deg, #5B9BD5 0%, #7DB3E8 100%);
     box-shadow: 0 4px 16px rgba(91, 155, 213, 0.4);
@@ -80,9 +73,6 @@ body {
         border-color: rgba(255, 255, 255, 0.6);
     }
 
-/* ==========================================
-   Dashboard
-   ========================================== */
 .dashboard-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -106,9 +96,7 @@ body {
         font-size: 1.1rem;
     }
 
-/* ==========================================
-   Stat Cards - KOLOROWE TŁA
-   ========================================== */
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -127,7 +115,7 @@ body {
     overflow: hidden;
 }
 
-    /* Kolorowe akcenty na górze karty */
+    
     .stat-card::before {
         content: '';
         position: absolute;
@@ -225,9 +213,7 @@ body {
     font-weight: 600;
 }
 
-/* ==========================================
-   Card Modern - KOLOROWE TŁA
-   ========================================== */
+
 .card-modern {
     background: linear-gradient(135deg, #F5F8FC 0%, white 100%);
     border-radius: 16px;
@@ -275,9 +261,7 @@ body {
     background: white;
 }
 
-/* ==========================================
-   Buttons - WSZYSTKIE W JEDNOLITYM STYLU
-   ========================================== */
+
 .btn-primary-custom,
 .btn-secondary-custom {
     background: linear-gradient(135deg, #EFF3F8 0%, #E0E8F0 100%);
@@ -302,7 +286,6 @@ body {
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
     }
 
-/* Małe przyciski */
 .btn-sm.btn-primary-custom,
 .btn-sm.btn-secondary-custom {
     padding: 0.5rem 1rem;
@@ -334,9 +317,6 @@ body {
     font-size: 0.85rem;
 }
 
-/* ==========================================
-   Badges - WYRAZISTE
-   ========================================== */
 .badge-custom {
     padding: 0.5rem 1rem;
     border-radius: 20px;
@@ -377,9 +357,7 @@ body {
     border: 2px solid var(--secondary-color);
 }
 
-/* ==========================================
-   Formularze - KOLOROWE TŁA
-   ========================================== */
+
 .form-modern {
     background: linear-gradient(135deg, #F5F8FC 0%, white 100%);
     border-radius: 16px;
@@ -418,9 +396,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* ==========================================
-   Tables - KOLOROWY HEADER
-   ========================================== */
+
 .table-modern {
     background: white;
     border-radius: 16px;
@@ -458,9 +434,6 @@ body {
         font-weight: 500;
     }
 
-/* ==========================================
-   Page Header - LEPSZY LAYOUT
-   ========================================== */
 .page-header {
     display: flex;
     justify-content: space-between;
@@ -477,9 +450,6 @@ body {
         margin: 0;
     }
 
-/* ==========================================
-   Priority & Status Pills
-   ========================================== */
 .priority-low {
     background: var(--success-bg);
     color: var(--success);
@@ -558,9 +528,7 @@ body {
     border: 2px solid var(--danger);
 }
 
-/* ==========================================
-   Footer
-   ========================================== */
+
 .footer-custom {
     background: linear-gradient(135deg, #5B9BD5 0%, #7DB3E8 100%);
     color: white;
@@ -571,9 +539,7 @@ body {
     box-shadow: 0 -4px 16px rgba(91, 155, 213, 0.3);
 }
 
-/* ==========================================
-   Empty State
-   ========================================== */
+
 .empty-state {
     text-align: center;
     padding: 5rem 2rem;
@@ -599,9 +565,7 @@ body {
     font-size: 1.1rem;
 }
 
-/* ==========================================
-   Action Buttons
-   ========================================== */
+
 .action-buttons {
     display: flex;
     gap: 0.75rem;
@@ -612,9 +576,7 @@ body {
         min-width: 110px;
     }
 
-/* ==========================================
-   Animations
-   ========================================== */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -631,9 +593,7 @@ body {
     animation: fadeIn 0.6s ease-out;
 }
 
-/* ==========================================
-   Responsive
-   ========================================== */
+
 @media (max-width: 768px) {
     .dashboard-header h1 {
         font-size: 2rem;

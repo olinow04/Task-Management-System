@@ -31,7 +31,7 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=TaskManagementDB;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=true
     ports:
-      - "5000:8080"
+      - "5015:8080"
     depends_on:
       sqlserver:
         condition: service_healthy

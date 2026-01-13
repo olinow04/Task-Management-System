@@ -99,8 +99,8 @@
                             </td>
                             <td>
                                 <div class="action-buttons">
-                                    <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-sm btn-secondary-custom" title="Szczeg��ły">👁️</a>
-                                    <a asp-action="Edit" asp-route-id="@task. Id" class="btn btn-sm btn-secondary-custom" title="Edytuj">✏️</a>
+                                    <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-sm btn-secondary-custom" title="Szczegóły">👁️</a>
+                                    <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-sm btn-secondary-custom" title="Edytuj">✏️</a>
                                     @if (User.IsInRole("Admin"))
                                     {
                                         <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-sm btn-danger-custom" title="Usuń">🗑️</a>

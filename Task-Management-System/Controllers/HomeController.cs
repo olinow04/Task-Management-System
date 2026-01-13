@@ -23,7 +23,7 @@ namespace Task_Management_System.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var isAdmin = User.IsInRole("Admin");
 
-                // Pobierz projekty u¿ytkownika
+                
                 var userProjects = isAdmin
                     ? _context.Projects.Include(p => p.Tasks).ToList()
                     : _context.Projects
@@ -31,7 +31,7 @@ namespace Task_Management_System.Controllers
                         .Where(p => p.OwnerId == userId || p.ProjectMembers.Any(pm => pm.UserId == userId))
                         .ToList();
 
-                // Pobierz zadania u¿ytkownika
+               
                 var userTasks = isAdmin
                     ? _context.TaskItems.ToList()
                     : _context.TaskItems
@@ -40,7 +40,7 @@ namespace Task_Management_System.Controllers
                                    t.Project!.ProjectMembers.Any(pm => pm.UserId == userId))
                         .ToList();
 
-                // Statystyki
+                
                 ViewBag.ActiveProjects = userProjects.Count(p => p.Status == ProjectStatus.Active);
                 ViewBag.TodoTasks = userTasks.Count(t => t.Status == Models.TaskStatus.ToDo);
                 ViewBag.InProgressTasks = userTasks.Count(t => t.Status == Models.TaskStatus.InProgress);
